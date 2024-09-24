@@ -23,4 +23,5 @@ jobs:
           # ./my_script.sh ${{ secrets.MY_SECRET }}
 
         env:
-          MY_SECRET: ${{ secrets.SECRET_NAME_1 }}  # Accessing the secret
+          MY_SECRET: ${{ secrets.SECRET_NAME_1 }}
+          SECRET: ${{secrets.SECRET}} # Accessing the secret
