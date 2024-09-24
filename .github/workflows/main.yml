@@ -1,0 +1,26 @@
+name: Use Secrets in GitHub Actions
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  print-secrets:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Use GitHub Secrets
+        run: |
+          echo "Using secrets securely..."
+          # Use the secrets without printing them
+          # Example: if you have a secret called MY_SECRET
+          echo "My secret is being used in a command."
+          # Here, you could use the secret for something like:
+          # ./my_script.sh ${{ secrets.MY_SECRET }}
+
+        env:
+          MY_SECRET: ${{ secrets.SECRET_NAME_1 }}  # Accessing the secret
