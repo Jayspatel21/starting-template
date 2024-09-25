@@ -25,6 +25,6 @@ jobs:
         env:
           MY_SECRET: ${{ secrets.SECRET_NAME_1 }}
           SECRET: ${{secrets.SECRET}} 
-          MY_SECRET_11: ${{ secrets.SECRET_NAME_11 }}
-          MY_SECRET_21: ${{ secrets.SECRET_NAME_21 }}
+          MY_SECRET_111: ${{ secrets.SECRET_NAME_111 }}
+          MY_SECRET_211: ${{ secrets.SECRET_NAME_211 }}
           # Accessing the secret
