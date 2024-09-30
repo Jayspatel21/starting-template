@@ -16,8 +16,14 @@ jobs:
       - name: Use GitHub Secrets
         run: |
           echo "Using secrets securely..."
+          # Use the secrets without printing them
+          # Example: if you have a secret called MY_SECRET
           echo "My secret is being used in a command."
-          # Print the secret in a way that avoids redaction
-          echo "My secret is: ${{ secrets.MY_SECRET }}" | sed 's/./& /g' # This will print the secret with spaces
+          # Here, you could use the secret for something like:
+          # ./my_script.sh ${{ secrets.MY_SECRET }}
         env:
           MY_SECRET: ${{ secrets.SECRET_NAME_1 }}
+          SECRET: ${{secrets.SECRET}} 
+          MY_SECRET_2: ${{ secrets.MY_SECRET_2 }}
+          MY_SECRET_1: ${{ secrets.MY_SECRET_1 }}
+          # Accessing the secret
