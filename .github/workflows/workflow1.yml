@@ -1,15 +1,11 @@
 name: Use Secrets in GitHub Actions
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch: # This enables manual trigger
 
 jobs:
   print-secrets:
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch'
 
     steps:
       - name: Checkout repository
