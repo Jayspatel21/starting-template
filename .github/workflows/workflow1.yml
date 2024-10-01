@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
 
 jobs:
   ci:
@@ -18,9 +17,19 @@ jobs:
           # Add your CI tasks here (e.g., tests, builds)
           echo "CI job completed."
 
-  cd:
+  wait-for-approval:
+    needs: ci
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Wait for CEO approval
+        uses: trstringer/manual-approval@v1
+        with:
+          secret: ${{ github.TOKEN }}
+          approvers: reaserch-linearloop
+
+  cd:
+    needs: wait-for-approval
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
