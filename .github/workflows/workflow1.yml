@@ -3,17 +3,20 @@ name: CI and CD Workflow
 on:
   push:
     branches:
-      - main  # This triggers the CI job on push to main
-  workflow_dispatch:  # This allows manual triggering of the CD job
+      - main
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: 'Run CD (deployment)'
+        required: true
+        type: boolean
 
 jobs:
   ci:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
-
+        uses: actions/checkout@v3
       - name: Run CI Tasks
         run: |
           echo "Running CI tasks..."
@@ -21,16 +24,17 @@ jobs:
           echo "CI job completed."
 
   cd:
+    needs: ci
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'workflow_dispatch' }}  # CD job runs only when manually triggered
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy == 'true'
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
-
+        uses: actions/checkout@v3
       - name: Deploy Application
         run: |
           echo "Running CD tasks..."
-          # Add your deployment or secret-using steps here
+          echo "Deployment initiated by the CEO"
+          # Add your deployment steps here
         env:
           MY_SECRET: ${{ secrets.SECRET_NAME_1 }}
           SECRET: ${{ secrets.SECRET }}
