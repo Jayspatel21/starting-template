@@ -1,27 +1,38 @@
-name: Use Secrets in GitHub Actions
+name: CI and CD Workflow
 
 on:
-  workflow_dispatch: # This enables manual trigger
+  push:
+    branches:
+      - main  # This triggers the CI job on push to main
+  workflow_dispatch:  # This allows manual triggering of the CD job
 
 jobs:
-  print-secrets:
+  ci:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Use GitHub Secrets
+      - name: Run CI Tasks
         run: |
-          echo "Using secrets securely..."
-          # Use the secrets without printing them
-          # Example: if you have a secret called MY_SECRET
-          echo "My secret is being used in a command."
-          # Here, you could use the secret for something like:
-          # ./my_script.sh ${{ secrets.MY_SECRET }}
+          echo "Running CI tasks..."
+          # Add your CI tasks here (e.g., tests, builds)
+          echo "CI job completed."
+
+  cd:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' }}  # CD job runs only when manually triggered
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Deploy Application
+        run: |
+          echo "Running CD tasks..."
+          # Add your deployment or secret-using steps here
         env:
           MY_SECRET: ${{ secrets.SECRET_NAME_1 }}
           SECRET: ${{ secrets.SECRET }}
           MY_SECRET_2: ${{ secrets.MY_SECRET_2 }}
           MY_SECRET_1: ${{ secrets.MY_SECRET_1 }}
-          # Accessing the secret
