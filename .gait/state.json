@@ -1,6 +1,39 @@
 {
   "panelChats": [],
-  "inlineChats": [],
+  "inlineChats": [
+    {
+      "inline_chat_id": "7bb7eb99-2837-4e8c-b40c-853de61c46b3",
+      "file_diff": [
+        {
+          "file_path": "src/app.controller.ts",
+          "diffs": [
+            {
+              "count": 11,
+              "added": false,
+              "removed": false,
+              "value": "import { Controller, Get } from '@nestjs/common';\r\nimport { AppService } from './app.service';\r\n\r\n@Controller()\r\nexport class AppController {\r\n  constructor(private readonly appService: AppService) {}\r\n\r\n  @Get()\r\n  getHello(): string {\r\n    return this.appService.getHello();\r\n  }\r\n"
+            },
+            {
+              "count": 5,
+              "added": true,
+              "removed": false,
+              "value": "\r\n  @Get('ping')\r\n  ping(): string {\r\n    return 'pong';\r\n  }\r\n"
+            },
+            {
+              "count": 1,
+              "added": false,
+              "removed": false,
+              "value": "}\r\n"
+            }
+          ]
+        }
+      ],
+      "selection": null,
+      "timestamp": "2024-10-25T04:50:21.764Z",
+      "prompt": "add ping controller",
+      "parent_inline_chat_id": null
+    }
+  ],
   "schemaVersion": "1.0",
   "deletedChats": {
     "deletedMessageIDs": [],
